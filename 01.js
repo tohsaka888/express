@@ -1,19 +1,15 @@
-const express = require('express')
-const app = express()
-const port = 8000
+var express = require('express')
 
-var bodyParser = require('body-parser');
-app.use(bodyParser.urlencoded({ extended: false }));
+var app = express()
 
-app.post('/add',(req,res)=>{
-    console.log(req.body)
-    if(req.body.user === 'admin'&&req.body.pass === 123456) {
-        res.send('ok')
-        console.log('ok')
-    }else{
-        res.send('error')
-        console.log('error')
-    }
+var port = 8000
+
+app.use(express.json()) // for parsing application/json
+app.use(express.urlencoded({ extended: true })) // for parsing application/x-www-form-urlencoded
+
+app.post('/add', function (req, res, next) {
+  console.log(req.body)
+  res.json(req.body)
 })
 
 app.listen(port, () => console.log(`Example app listening on port port!`))
